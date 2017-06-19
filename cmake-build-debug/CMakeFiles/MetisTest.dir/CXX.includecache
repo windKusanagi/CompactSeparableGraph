@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/xiangzhang/workspace/MetisTest/src/MetisNode.cpp
+metis.h
+-
+vector
+-
+string
+-
+iostream
+-
+sstream
+-
+MetisNode.h
+/home/xiangzhang/workspace/MetisTest/src/MetisNode.h
+
+/home/xiangzhang/workspace/MetisTest/src/MetisNode.h
+metis.h
+-
+vector
+-
+string
+-
+
+/home/xiangzhang/workspace/MetisTest/src/MetisTest.cpp
+cstddef
+-
+iostream
+-
+metis.h
+-
+MetisNode.h
+/home/xiangzhang/workspace/MetisTest/src/MetisNode.h
+sstream
+-
+vector
+-
+math.h
+-
+

@@ -1,0 +1,1 @@
+/usr/bin/c++    -std=c++11 -lmetis -g   CMakeFiles/MetisTest.dir/src/MetisNode.cpp.o CMakeFiles/MetisTest.dir/src/MetisTest.cpp.o  -o MetisTest -rdynamic 
