@@ -31,8 +31,8 @@ class NeighbourListNonSorted{
 public:
 	NeighbourListNonSorted();
 
-	//static const int tableSize = 15606; // table size of 4elt graph
-	static const int tableSize = 214765; // table size of m14b graph
+	static const int tableSize = 15606; // table size of 4elt graph
+	//static const int tableSize = 214765; // table size of m14b graph
 	//static const int tableSize = 143437; // table size of feocean graph
 	//static const int tableSize = 15; // table size of hyper-small mesh graph
 	//static const int tableSize = 144649;    //table size  of 144.graph
