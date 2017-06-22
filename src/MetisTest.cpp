@@ -202,6 +202,7 @@ void testUnit (phsim::BitString);
 void testUnitWithD (phsim::BitString, int );
 void DFS(phsim::BitString);
 
+
 int main() {
 
 
@@ -271,20 +272,20 @@ int main() {
     //vector< int > degree;
 
 
-//    phsim::BitString data;
-//	{
-//		phsim::BitStringWriter writer(data);
-//		unsigned int curBitN = 0;
-//		for (int i=0; i< inputWV.size() ; i++){
-//			indexStructure.directIndex.push_back(curBitN);
-//			//degree.push_back(inputWV[i].size());
-//			phsim::gammaEncode(writer ,inputWV[i].size() ,curBitN );
-//			for(auto x:inputWV[i]){
-//				phsim::gammaEncode(writer ,x ,curBitN );
-//			}
-//
-//		}
-//	}
+    phsim::BitString data;
+	{
+		phsim::BitStringWriter writer(data);
+		unsigned int curBitN = 0;
+		for (int i=0; i< inputWV.size() ; i++){
+			indexStructure.directIndex.push_back(curBitN);
+			//degree.push_back(inputWV[i].size());
+			phsim::gammaEncode(writer ,inputWV[i].size() ,curBitN );
+			for(auto x:inputWV[i]){
+				phsim::gammaEncode(writer ,x ,curBitN );
+			}
+
+		}
+	}
 
 
 //	int degreeBitCount = 0;
@@ -297,18 +298,18 @@ int main() {
 
 	// without the number of neighbors for each vertex at the beginning of each adj
 
-    phsim::BitString data;
-	{
-		phsim::BitStringWriter writer(data);
-		unsigned int curBitN = 0;
-		for (int i=0; i< inputWV.size() ; i++){
-			indexStructure.directIndex.push_back(curBitN);
-			for(auto x:inputWV[i]){
-				phsim::gammaEncode(writer ,x ,curBitN );
-			}
-
-		}
-	}
+//    phsim::BitString data;
+//	{
+//		phsim::BitStringWriter writer(data);
+//		unsigned int curBitN = 0;
+//		for (int i=0; i< inputWV.size() ; i++){
+//			indexStructure.directIndex.push_back(curBitN);
+//			for(auto x:inputWV[i]){
+//				phsim::gammaEncode(writer ,x ,curBitN );
+//			}
+//
+//		}
+//	}
 
     cout<< "Gamma Encoding completed ! " <<endl;
     cout<< data.data.size() <<endl;
@@ -338,7 +339,7 @@ int main() {
 
 
 
-    DFS(data);
+    //DFS(data);
 
 //    directDecodeAll(data);
 //    cout << "Directly decode the dataset completed! " <<endl;
@@ -352,8 +353,7 @@ int main() {
 //    cout << size_in_bytes(indexStructure.sdb_vector) <<endl;
 //
 //
-//    //cout << indexStructure.blockNum <<endl;
-//    cout << indexStructure.subBlockCounter <<endl;
+
 
 //    cout << " vid '1401' :" <<mappingForRestore[1401]<<endl;
 //    cout << "Using directIndex:" <<endl;
@@ -370,9 +370,9 @@ int main() {
 //    for (int i=0; i<test.size(); i++){
 //    	cout << test[i] << endl;
 //    }
-
+    // 35588
 //    cout << "Using SemiDIndex :" <<endl;
-//    for ( int i=0 ;i< 15605 ;i++){
+//    for ( int i=0 ;i< nV-1 ;i++){
 //    	getAdjForOneVUsingSemiDI(data , i);
 //    }
 //    cout << "complete" <<endl;
@@ -414,8 +414,29 @@ int main() {
 //	}
 
 
+//    cout << indexStructure.blockNum <<endl;
+//    cout << indexStructure.subBlockCounter <<endl;
+//    int max = 0;
+//    for ( int i=0; i<indexStructure.blockNum -1  ; i++ ){
+//    	//cout << indexStructure.bitVofEachBlock[i] << "  "  << indexStructure.indrectIndex[i].size() <<endl;
+//    	//cout << max << "   " << indexStructure.indrectIndex[i].size()<<endl;
+//    	if (indexStructure.indrectIndex[i].size() > max){
+//    		max = indexStructure.indrectIndex[i].size();
+//    	}
+//    }
+//    cout <<"max"<< max <<endl;
+    //15606
+    cout << "Using Indirect : " <<endl;
+    for ( int i =0 ; i< 15590 ;i++){
+    	getAdjForOneVUsingIDI(data , i);
+    }
+    cout<< "complete!~" <<endl;
 
-
+    vector<int> res1 = getAdjForOneVUsingIDI(data, 13000);
+    cout << " vid '9000' :" <<mappingForRestore[13000]<<endl;
+    for (int i=0; i<res1.size();i++){
+    	cout << res1[i] << "  " ;
+    }
     //testUnit(data);
     //testUnitWithD(data, 0);
 
@@ -2691,72 +2712,94 @@ vector <int> getAdjForOneVUsingIDI (phsim::BitString data,unsigned int vid){
 	int offsetInV = 0;
 	int dataLength = 0;
 
-	rrr_vector<>::select_1_type rrr_s(&indexStructure.rrrBVofEachBlock[block_num]);
-	rrr_vector<>::rank_1_type rrr_r(&indexStructure.rrrBVofEachBlock[block_num]);
+	int offset_in_subblock = 0;
+	int case_flag = 0;
+
+	rrr_vector<>::select_1_type rrr_select(&indexStructure.rrrBVofEachBlock[block_num]);
+	rrr_vector<>::rank_1_type rrr_rank(&indexStructure.rrrBVofEachBlock[block_num]);
 
 
-	if ( rrr_r(indexStructure.blockVNum) == 1 ){
+	if ( indexStructure.indrectIndex[block_num].size() == 1 ){
 
 		dataLength = indexStructure.indrectIndex[block_num+1][0] - indexStructure.indrectIndex[block_num][0];
 		vectorIndex = indexStructure.indrectIndex[block_num][0]/64;
 		offsetInV = indexStructure.indrectIndex[block_num][0]%64;
+		offset_in_subblock = in_block_index;
+		//case_flag = 1;
 
-	}else if ( rrr_r(indexStructure.blockVNum) == 2 ){
+	}else if ( indexStructure.indrectIndex[block_num].size() == 2 ){
 
-		if ( in_block_index < rrr_s(2)){
+		if ( in_block_index < rrr_select(2)){
 			dataLength = indexStructure.indrectIndex[block_num][1] - indexStructure.indrectIndex[block_num][0];
 			vectorIndex = indexStructure.indrectIndex[block_num][0]/64;
 			offsetInV = indexStructure.indrectIndex[block_num][0]%64;
+			offset_in_subblock = in_block_index;
+			//case_flag = 2;
+
 		}else{
 			dataLength = indexStructure.indrectIndex[block_num+1][0] - indexStructure.indrectIndex[block_num][1];
 			vectorIndex = indexStructure.indrectIndex[block_num][1]/64;
 			offsetInV = indexStructure.indrectIndex[block_num][1]%64;
+			offset_in_subblock = in_block_index - rrr_select(2);
+			//case_flag = 2;
 		}
 
-	}else if ( rrr_r(indexStructure.blockVNum) == 3 ){
+	}else if ( indexStructure.indrectIndex[block_num].size() == 3 ){
 
-		if ( in_block_index < rrr_s(2)){
+		if ( in_block_index < rrr_select(2)){
 			dataLength = indexStructure.indrectIndex[block_num][1] - indexStructure.indrectIndex[block_num][0];
 			vectorIndex = indexStructure.indrectIndex[block_num][0]/64;
 			offsetInV = indexStructure.indrectIndex[block_num][0]%64;
+			offset_in_subblock = in_block_index;
+			//case_flag = 3;
 
-		}else if (in_block_index < rrr_s(3)){
+		}else if (in_block_index < rrr_select(3)){
 
 			dataLength = indexStructure.indrectIndex[block_num][2] - indexStructure.indrectIndex[block_num][1];
 			vectorIndex = indexStructure.indrectIndex[block_num][1]/64;
 			offsetInV = indexStructure.indrectIndex[block_num][1]%64;
-
+			offset_in_subblock = in_block_index - rrr_select(2);
+			//case_flag = 3;
 		}else{
 
 			dataLength = indexStructure.indrectIndex[block_num+1][0] - indexStructure.indrectIndex[block_num][2];
 			vectorIndex = indexStructure.indrectIndex[block_num][2]/64;
 			offsetInV = indexStructure.indrectIndex[block_num][2]%64;
+			offset_in_subblock = in_block_index - rrr_select(3);
+			//case_flag = 3;
 		}
 
-	}else if ( rrr_r(indexStructure.blockVNum) == 4 ){
+	}else if ( indexStructure.indrectIndex[block_num].size() == 4 ){
 
-		if ( in_block_index < rrr_s(2)){
+		if ( in_block_index < rrr_select(2)){
 
 			dataLength = indexStructure.indrectIndex[block_num][1] - indexStructure.indrectIndex[block_num][0];
 			vectorIndex = indexStructure.indrectIndex[block_num][0]/64;
 			offsetInV = indexStructure.indrectIndex[block_num][0]%64;
+			offset_in_subblock = in_block_index;
+			//case_flag = 4;
 
-		}else if (in_block_index < rrr_s(3)){
+		}else if (in_block_index < rrr_select(3)){
 
 			dataLength = indexStructure.indrectIndex[block_num][2] - indexStructure.indrectIndex[block_num][1];
 			vectorIndex = indexStructure.indrectIndex[block_num][1]/64;
 			offsetInV = indexStructure.indrectIndex[block_num][1]%64;
+			offset_in_subblock = in_block_index - rrr_select(2);
+			//case_flag = 4;
 
-		}else if (in_block_index < rrr_s(4)){
+		}else if (in_block_index < rrr_select(4)){
 
 			dataLength = indexStructure.indrectIndex[block_num][3] - indexStructure.indrectIndex[block_num][2];
 			vectorIndex = indexStructure.indrectIndex[block_num][2]/64;
 			offsetInV = indexStructure.indrectIndex[block_num][2]%64;
-
+			offset_in_subblock = in_block_index - rrr_select(3);
+			//case_flag = 4;
 		}else{
 			dataLength = indexStructure.indrectIndex[block_num+1][0] - indexStructure.indrectIndex[block_num][3];
 			vectorIndex = indexStructure.indrectIndex[block_num][3]/64;
 			offsetInV = indexStructure.indrectIndex[block_num][3]%64;
+			offset_in_subblock = in_block_index - rrr_select(4);
+			//case_flag = 4;
 		}
 
 	}else{
@@ -2776,7 +2819,8 @@ vector <int> getAdjForOneVUsingIDI (phsim::BitString data,unsigned int vid){
 
 	}
 
-	if (in_block_index==0){
+
+	if (offset_in_subblock == 0){
 		int degree = temp[0];
 		int base = 0;
 
@@ -2794,12 +2838,11 @@ vector <int> getAdjForOneVUsingIDI (phsim::BitString data,unsigned int vid){
 			base = id;
 		}
 	}else{
-
 		int start_index = 0;
 		int degree_num = temp[0];
 		start_index+=degree_num+1;
 		int next_pos = 0;
-		for (int i=1; i< in_block_index ; i++ ){
+		for (int i=1; i< offset_in_subblock ; i++ ){
 			next_pos += degree_num+1;
 			degree_num = temp[next_pos];
 			start_index += degree_num+1;
@@ -2823,6 +2866,7 @@ vector <int> getAdjForOneVUsingIDI (phsim::BitString data,unsigned int vid){
 		}
 
 	}
+
 	return adjList;
 }
 
@@ -3020,6 +3064,8 @@ void DFS(phsim::BitString data){
 	visited3[0] = true;
 	visited3[nV-1] = true;
 	visited3[nV-2] = true;
+	visited3[nV-3] = true;
+
 	thisLoop.push_back(0);
 	temp_set.clear();
 	temp_set = getAdjForOneVUsingSemiDI(data, 0);
@@ -3037,7 +3083,7 @@ void DFS(phsim::BitString data){
 		thisLoop = nextLoop;
 		nextLoop.clear();
 		for ( int i=0; i<thisLoop.size() ;i++){
-			if ( thisLoop[i] == nV-1 || thisLoop[i] == nV-2 ){
+			if ( thisLoop[i] == nV-1 || thisLoop[i] == nV-2 || thisLoop[i] == nV-3 ){
 
 			}else{
 				int vectorIndex = 0;
@@ -3142,31 +3188,10 @@ void DFS(phsim::BitString data){
 						}
 					}
 				}
-//				int base = 0;
-//				if ( negativeDiff[thisLoop[i]] == false){
-//					base = thisLoop[i] + temp[0];
-//				}else{
-//					base = thisLoop[i] - temp[0];
-//				}
-//
-//				if (visited3[base] == false){
-//					nextLoop.push_back(base);
-//					visited3[base] = true;
-//				}
-//
-//				for( int i=1; i<temp.size(); i++){
-//					int id = base + temp[i];
-//
-//					if (visited3[id] == false){
-//						nextLoop.push_back(id);
-//						visited3[id] = true;
-//					}
-//					base = id;
-//				}
+
 			}
 		}
 
-		//count ++;
 	}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////

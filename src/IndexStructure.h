@@ -184,6 +184,7 @@ void IndexStructure::buildIndirectIndex(){
 
 					vNumInEachSubBlock.push_back(1);
 					this->subBlockCounter += 1;
+
 				}else{
 					vNumInEachSubBlock.push_back(vertexCounter);
 					this->subBlockCounter += 1;
