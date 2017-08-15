@@ -91,8 +91,8 @@ vector<int> offsetIndex;
 
 //idx_t nV = 15;
 
-idx_t nV = 15606;  // nV of 4elt.graph
-idx_t nE = 45878;  // nE of 4elt.graph
+//idx_t nV = 15606;  // nV of 4elt.graph
+//idx_t nE = 45878;  // nE of 4elt.graph
 
 //idx_t nV = 214765;  // nV of m14b.graph
 //idx_t nE = 1679018;  // nE of m14b.graph
@@ -110,18 +110,18 @@ idx_t nE = 45878;  // nE of 4elt.graph
 //idx_t nV = 28924;    // nV of bcsstk30.graph
 //idx_t nE = 1007284;   // nE of bcsstk30.graph
 
-//idx_t nV = 35588;    // nV of bcsstk31.graph
-//idx_t nE = 572914;   // nE of bcsstk31.graph
+// idx_t nV = 35588;    // nV of bcsstk31.graph
+// idx_t nE = 572914;   // nE of bcsstk31.graph
 
-//idx_t nV = 45087;    // nV of fe_body.graph
-//idx_t nE = 163734;   // nE of fe_body.graph
+idx_t nV = 45087;    // nV of fe_body.graph
+idx_t nE = 163734;   // nE of fe_body.graph
 
 //idx_t nV = 156317;    // nV of wave.graph
 //idx_t nE = 1059331;   // nE of wave.graph
 
 
-idx_t * Inputadj = new int [91756];  // size of adj of 4elt graph
-idx_t * InputXadj = new int [15607]; // nV of 4elt + 1
+//idx_t * Inputadj = new int [91756];  // size of adj of 4elt graph
+//idx_t * InputXadj = new int [15607]; // nV of 4elt + 1
 
 //idx_t * Inputadj = new int [3358036];  // size of adj of m14b graph
 //idx_t * InputXadj = new int [214766]; // nV of m14b + 1
@@ -141,8 +141,8 @@ idx_t * InputXadj = new int [15607]; // nV of 4elt + 1
 //idx_t * Inputadj = new int [1145828];  // size of adj of bcsstk31 graph
 //idx_t * InputXadj = new int [35589]; // nV of bcsstk31 + 1
 
-//idx_t * Inputadj = new int [327468];  // size of adj of fe_body graph
-//idx_t * InputXadj = new int [45088]; // nV of fe_body + 1
+idx_t * Inputadj = new int [327468];  // size of adj of fe_body graph
+idx_t * InputXadj = new int [45088]; // nV of fe_body + 1
 
 //idx_t * Inputadj = new int [2118662];  // size of adj of wave graph
 //idx_t * InputXadj = new int [156318]; // nV of wave + 1
@@ -201,6 +201,7 @@ int compareints (const void * a, const void * b){
 void testUnit (phsim::BitString);
 void testUnitWithD (phsim::BitString, int );
 void DFS(phsim::BitString);
+void DFSIDI(phsim::BitString);
 
 
 int main() {
@@ -339,7 +340,8 @@ int main() {
 
 
 
-    //DFS(data);
+    DFS(data);
+    //DFSIDI(data);
 
 //    directDecodeAll(data);
 //    cout << "Directly decode the dataset completed! " <<endl;
@@ -425,18 +427,18 @@ int main() {
 //    	}
 //    }
 //    cout <<"max"<< max <<endl;
-    //15606
-    cout << "Using Indirect : " <<endl;
-    for ( int i =0 ; i< 15590 ;i++){
-    	getAdjForOneVUsingIDI(data , i);
-    }
-    cout<< "complete!~" <<endl;
-
-    vector<int> res1 = getAdjForOneVUsingIDI(data, 13000);
-    cout << " vid '9000' :" <<mappingForRestore[13000]<<endl;
-    for (int i=0; i<res1.size();i++){
-    	cout << res1[i] << "  " ;
-    }
+    //143437
+//    cout << "Using Indirect : " <<endl;
+//    for ( int i =0 ; i< 143400 ;i++){
+//    	getAdjForOneVUsingIDI(data , i);
+//    }
+//    cout<< "complete!~" <<endl;
+//
+//    vector<int> res1 = getAdjForOneVUsingIDI(data, 13000);
+//    cout << " vid '9000' :" <<mappingForRestore[13000]<<endl;
+//    for (int i=0; i<res1.size();i++){
+//    	cout << res1[i] << "  " ;
+//    }
     //testUnit(data);
     //testUnitWithD(data, 0);
 
@@ -476,8 +478,8 @@ void readInput(){
 	//ifstream myfile2 ("/home/xiangzhang/MetisTestGraph/m14b/m14bAdj.txt");
 	//ifstream myfile1 ("/home/xiangzhang/MetisTestGraph/feocean/feoceanXadj.txt");  // Reading data of feocean
 	//ifstream myfile2 ("/home/xiangzhang/MetisTestGraph/feocean/feoceanAdj.txt");
-	ifstream myfile1 ("/home/xiangzhang/MetisTestGraph/4elt_xadj.txt");  // Reading data of 4elt
-	ifstream myfile2 ("/home/xiangzhang/MetisTestGraph/4elt_adj.txt");
+	//ifstream myfile1 ("/home/xiangzhang/MetisTestGraph/4elt_xadj.txt");  // Reading data of 4elt
+	//ifstream myfile2 ("/home/xiangzhang/MetisTestGraph/4elt_adj.txt");
 	//ifstream myfile1 ("/home/xiangzhang/MetisTestGraph/144/144_xadj.txt");  // Reading data of 144.graph
 	//ifstream myfile2 ("/home/xiangzhang/MetisTestGraph/144/144_adj.txt");
 	//ifstream myfile1 ("/home/xiangzhang/MetisTestGraph/598a/598a_xadj.txt");  // Reading data of 598a.graph
@@ -486,8 +488,8 @@ void readInput(){
 	//ifstream myfile2 ("/home/xiangzhang/MetisTestGraph/bcsstk30/bcsstk30_adj.txt");
 	//ifstream myfile1 ("/home/xiangzhang/MetisTestGraph/bcsstk31/bcsstk31_xadj.txt");  // Reading data of bcsstk31.graph
 	//ifstream myfile2 ("/home/xiangzhang/MetisTestGraph/bcsstk31/bcsstk31_adj.txt");
-	//ifstream myfile1 ("/home/xiangzhang/MetisTestGraph/fe_body/fe_body_xadj.txt");  // Reading data of febody.graph
-	//ifstream myfile2 ("/home/xiangzhang/MetisTestGraph/fe_body/fe_body_adj.txt");
+	ifstream myfile1 ("/home/xiangzhang/MetisTestGraph/fe_body/fe_body_xadj.txt");  // Reading data of febody.graph
+	ifstream myfile2 ("/home/xiangzhang/MetisTestGraph/fe_body/fe_body_adj.txt");
 	//ifstream myfile1 ("/home/xiangzhang/MetisTestGraph/wave/wave_xadj.txt");  // Reading data of wave.graph
 	//ifstream myfile2 ("/home/xiangzhang/MetisTestGraph/wave/wave_adj.txt");
 
@@ -2893,62 +2895,495 @@ void DFS(phsim::BitString data){
 		nextLoop.push_back(temp_set[i]);
 		visited[temp_set[i]] = true;
 	}
-
-
-	start1 = std::chrono::system_clock::now();
-//	for ( int i=0; i< nextLoop.size();i++){
-//		cout << nextLoop[i] << " ";
+//
+//
+//	start1 = std::chrono::system_clock::now();
+////	for ( int i=0; i< nextLoop.size();i++){
+////		cout << nextLoop[i] << " ";
+////	}
+////	while (nextLoop.size()){
+////		//cout << nextLoop.size()<< " ";
+////		thisLoop = nextLoop;
+////		nextLoop.clear();
+////		for ( int i=0; i<thisLoop.size() ;i++){
+////			temp_set = getAdjForOneVUsingDI(data, thisLoop[i], false);
+////			for ( int j=0; j<temp_set.size() ;j++){
+////				if (visited[temp_set[j]] == false){
+////					nextLoop.push_back(temp_set[j]);
+////					visited[temp_set[j]] = true;
+////				}
+////			}
+////		}
+////	}
+//
+//	while (nextLoop.size()){
+//		//cout << nextLoop.size()<<"  ";
+//		thisLoop = nextLoop;
+//		nextLoop.clear();
+//		for ( int i=0; i<thisLoop.size() ;i++){
+//
+//			int vectorIndex = 0;
+//			int offsetInV = 0;
+//			int dataLength = 0;
+//			vector <int> adjList;
+//			//vector <int> temp;
+//			// Parameters Preparation
+//			vectorIndex = indexStructure.directIndex[thisLoop[i]]/64;
+//			offsetInV = indexStructure.directIndex[thisLoop[i]]%64;
+//			if ( thisLoop[i] != indexStructure.directIndex.size()-1){
+//				dataLength = indexStructure.directIndex[thisLoop[i]+1] - indexStructure.directIndex[thisLoop[i]];
+//			}else{
+//				dataLength = data.length - indexStructure.directIndex[thisLoop[i]];
+//			}
+//
+//			phsim::BitStringReader reader(data, vectorIndex, dataLength , offsetInV); // reader.bits_left = dataLength + offsetInV
+//			int flag=0;
+////			while(!reader.eof()){
+////				if (flag==0){
+////					temp.push_back(phsim::gammaDecodeWithOffset(reader , offsetInV));
+////					flag++;
+////				}else{
+////					temp.push_back(phsim::gammaDecode(reader));
+////				}
+////			}
+//			int base = 0;
+//			int diff = 0;
+//			while(!reader.eof()){
+//				if (flag==0){
+//					diff = phsim::gammaDecodeWithOffset(reader , offsetInV);
+//					flag++;
+//					if ( negativeDiff[thisLoop[i]] == false){
+//						base = thisLoop[i] + diff;
+//					}else{
+//						base = thisLoop[i] - diff;
+//					}
+//
+//					if (visited[base] == false){
+//						nextLoop.push_back(base);
+//						visited[base] = true;
+//					}
+//
+//				}else{
+//					diff = phsim::gammaDecode(reader);
+//					int id = base + diff;
+//					if (visited[id] == false){
+//						nextLoop.push_back(id);
+//						visited[id] = true;
+//					}
+//					base = id;
+//				}
+//			}
+////			int base = 0;
+////			if ( negativeDiff[thisLoop[i]] == false){
+////				base = thisLoop[i] + temp[0];
+////			}else{
+////				base = thisLoop[i] - temp[0];
+////			}
+////
+////			if (visited[base] == false){
+////				nextLoop.push_back(base);
+////				visited[base] = true;
+////			}
+////			//adjList.push_back(mappingForRestore[base]);
+////			for( int i=1; i<temp.size(); i++){
+////				int id = base + temp[i];
+////
+////				if (visited[id] == false){
+////					nextLoop.push_back(id);
+////					visited[id] = true;
+////				}
+////				base = id;
+////			}
+//		}
+//
+//
 //	}
+//
+//
+//////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//
+//	end1 = std::chrono::system_clock::now();
+//	elapsed_seconds = end1-start1;
+//	std::cout << "DFS (Direct) elapsed time: " << elapsed_seconds.count() << "s\n";
+//
+//	thisLoop.clear();
+//	nextLoop.clear();
+//	start1 = std::chrono::system_clock::now();
+//
+////////////////////////////////////////////////////////////////////////////////////////////
+//
+//	cout << endl;
+//
+//	bool *visited2 = new bool [nV];
+//	for(int i=0; i<nV ;i++){
+//		visited2[i] = false;
+//	}
+//	thisLoop.push_back(0);
+//	visited2[0] = true;
+//
+//	for( int i=0; i<InputXadj[1];i++){
+//		nextLoop.push_back(Inputadj[i]);
+//		visited2[Inputadj[i]] = true;
+//	}
+////	for ( int i=0; i< nextLoop.size();i++){
+////		cout << nextLoop[i] << " ";
+////	}
 //	while (nextLoop.size()){
 //		//cout << nextLoop.size()<< " ";
 //		thisLoop = nextLoop;
 //		nextLoop.clear();
 //		for ( int i=0; i<thisLoop.size() ;i++){
-//			temp_set = getAdjForOneVUsingDI(data, thisLoop[i], false);
-//			for ( int j=0; j<temp_set.size() ;j++){
-//				if (visited[temp_set[j]] == false){
-//					nextLoop.push_back(temp_set[j]);
-//					visited[temp_set[j]] = true;
+//
+//			for ( int j=0; j< InputXadj[ thisLoop[i]+1 ] - InputXadj[thisLoop[i]] ;j++){
+//
+//				if (visited2[Inputadj[InputXadj[thisLoop[i]]+j]] == false){
+//
+//					nextLoop.push_back( Inputadj[InputXadj[thisLoop[i]]+j] );
+//					visited2[ Inputadj[InputXadj[thisLoop[i]]+j] ] = true;
+//
 //				}
+//
 //			}
 //		}
 //	}
+//
+////////////////////////////////////////////////////////////////////////////////////////
+//	end1 = std::chrono::system_clock::now();
+//	elapsed_seconds = end1-start1;
+//	std::cout << "DFS (array-based adjacency list) elapsed time: " << elapsed_seconds.count() << "s\n";
+//
+//	thisLoop.clear();
+//	nextLoop.clear();
+//	cout << endl;
+//
+/////////////////////////////////////////////////////////////////////////////////////////
+//	bool *visited3 = new bool [nV];
+//
+//	for(int i=0; i<nV ;i++){
+//		visited3[i] = false;
+//	}
+//	visited3[0] = true;
+//	visited3[nV-1] = true;
+//	visited3[nV-2] = true;
+//	visited3[nV-3] = true;
+//
+//	thisLoop.push_back(0);
+//	temp_set.clear();
+//	temp_set = getAdjForOneVUsingSemiDI(data, 0);
+//	for( int i=0; i<temp_set.size();i++){
+//		nextLoop.push_back(temp_set[i]);
+//		visited3[temp_set[i]] = true;
+//	}
+//
+//	//cout << "here" <<endl;
+//	start1 = std::chrono::system_clock::now();
+//	//int count = 0;
+//	while (nextLoop.size()){
+//	//while (count <=44){
+//		//cout << nextLoop.size() <<"  ";
+//		thisLoop = nextLoop;
+//		nextLoop.clear();
+//		for ( int i=0; i<thisLoop.size() ;i++){
+//			if ( thisLoop[i] == nV-1 || thisLoop[i] == nV-2 || thisLoop[i] == nV-3 ){
+//
+//			}else{
+//				int vectorIndex = 0;
+//				int offsetInV = 0;
+//				int dataLength = 0;
+//				vector <int> adjList;
+//				vector <int> temp;
+//				// Parameters Preparation
+//				int order = thisLoop[i]/4;
+//				if ( thisLoop[i]%4 == 0){      // The first word in semiDI is enough
+//					vectorIndex = indexStructure.semiDIFW[order]/64;
+//					offsetInV = indexStructure.semiDIFW[order]%64;
+//					dataLength = indexStructure.semiDISW[order][0].to_ulong();
+//					// Decoding
+//					phsim::BitStringReader reader(data, vectorIndex, dataLength , offsetInV); // reader.bits_left = dataLength + offsetInV
+//					int flag=0;
+////					while(!reader.eof()){
+////						if (flag==0){
+////							temp.push_back(phsim::gammaDecodeWithOffset(reader , offsetInV));
+////							flag++;
+////						}else{
+////							temp.push_back(phsim::gammaDecode(reader));
+////						}
+////					}
+//					int base = 0;
+//					int diff = 0;
+//					while(!reader.eof()){
+//						if (flag==0){
+//							diff = phsim::gammaDecodeWithOffset(reader , offsetInV);
+//							flag++;
+//							if ( negativeDiff[thisLoop[i]] == false){
+//								base = thisLoop[i] + diff;
+//							}else{
+//								base = thisLoop[i] - diff;
+//							}
+//
+//							if (visited3[base] == false){
+//								nextLoop.push_back(base);
+//								visited3[base] = true;
+//							}
+//
+//						}else{
+//							diff = phsim::gammaDecode(reader);
+//							int id = base + diff;
+//							if (visited3[id] == false){
+//								nextLoop.push_back(id);
+//								visited3[id] = true;
+//							}
+//							base = id;
+//						}
+//					}
+//				}else{
+//					if ( thisLoop[i]%4 == 3){
+//						unsigned int baseAddress = indexStructure.semiDIFW[order];
+//						unsigned int realAddress = baseAddress + indexStructure.semiDISW[order][2].to_ulong();
+//						vectorIndex = realAddress/64;
+//						offsetInV = realAddress%64;
+//						dataLength = indexStructure.semiDIFW[order+1] - (indexStructure.semiDIFW[order] + indexStructure.semiDISW[order][2].to_ulong()) ;
+//					}else{
+//						unsigned int baseAddress = indexStructure.semiDIFW[order];
+//						unsigned int realAddress = baseAddress + indexStructure.semiDISW[order][thisLoop[i] % 4 -1].to_ulong();
+//						vectorIndex = realAddress/64;
+//						offsetInV = realAddress%64;
+//						dataLength = indexStructure.semiDISW[order][thisLoop[i] % 4].to_ulong() - indexStructure.semiDISW[order][thisLoop[i] % 4-1].to_ulong() ;
+//					}
+//					// Decoding
+//					phsim::BitStringReader reader(data, vectorIndex, dataLength , offsetInV); // reader.bits_left = dataLength + offsetInV
+//					int flag=0;
+////					while(!reader.eof()){
+////						if (flag==0){
+////							temp.push_back(phsim::gammaDecodeWithOffset(reader , offsetInV));
+////							flag++;
+////						}else{
+////							temp.push_back(phsim::gammaDecode(reader));
+////						}
+////					}
+//					int base = 0;
+//					int diff = 0;
+//					while(!reader.eof()){
+//						if (flag==0){
+//							diff = phsim::gammaDecodeWithOffset(reader , offsetInV);
+//							flag++;
+//							if ( negativeDiff[thisLoop[i]] == false){
+//								base = thisLoop[i] + diff;
+//							}else{
+//								base = thisLoop[i] - diff;
+//							}
+//
+//							if (visited3[base] == false){
+//								nextLoop.push_back(base);
+//								visited3[base] = true;
+//							}
+//
+//						}else{
+//							diff = phsim::gammaDecode(reader);
+//							int id = base + diff;
+//							if (visited3[id] == false){
+//								nextLoop.push_back(id);
+//								visited3[id] = true;
+//							}
+//							base = id;
+//						}
+//					}
+//				}
+//
+//			}
+//		}
+//
+//	}
+//
+//////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//
+//	end1 = std::chrono::system_clock::now();
+//	elapsed_seconds = end1-start1;
+//	std::cout << "DFS (Semi-Direct) elapsed time: " << elapsed_seconds.count() << "s\n";
+//	thisLoop.clear();
+//	nextLoop.clear();
+//	cout << endl;
+//
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//	bool *visited4 = new bool [nV];
+//
+//	for(int i=0; i<nV ;i++){
+//		visited4[i] = false;
+//	}
+//	visited4[0] = true;
+//	visited4[nV-1] = true;
+//	visited4[nV-2] = true;
+//	thisLoop.push_back(0);
+//	temp_set.clear();
+//	temp_set = getAdjForOneVUsingrrrDI(data, 0);
+//	for( int i=0; i<temp_set.size();i++){
+//		nextLoop.push_back(temp_set[i]);
+//		visited4[temp_set[i]] = true;
+//	}
+//	start1 = std::chrono::system_clock::now();
+//	//int count = 0;
+//	while (nextLoop.size()){
+//		thisLoop = nextLoop;
+//		nextLoop.clear();
+//		for ( int i=0; i<thisLoop.size() ;i++){
+//			int vectorIndex = 0;
+//			int offsetInV = 0;
+//			int dataLength = 0;
+//			vector <int> adjList;
+//			vector <int> temp;
+//			rrr_vector<>::select_1_type rrr_s(&indexStructure.rrr_direct_index);
+//			// Parameters Preparation
+//			vectorIndex = rrr_s(thisLoop[i]+1)/64;
+//			offsetInV = rrr_s(thisLoop[i]+1)%64;
+//			if ( thisLoop[i] != indexStructure.directIndex.size()-1){
+//				dataLength = rrr_s(thisLoop[i]+2) - rrr_s(thisLoop[i]+1);
+//			}else{
+//				dataLength = data.length - rrr_s(thisLoop[i]+1);
+//			}
+//
+//			phsim::BitStringReader reader(data, vectorIndex, dataLength , offsetInV); // reader.bits_left = dataLength + offsetInV
+//			int flag=0;
+//			int base = 0;
+//			int diff = 0;
+//			while(!reader.eof()){
+//				if (flag==0){
+//					diff = phsim::gammaDecodeWithOffset(reader , offsetInV);
+//					flag++;
+//					if ( negativeDiff[thisLoop[i]] == false){
+//						base = thisLoop[i] + diff;
+//					}else{
+//						base = thisLoop[i] - diff;
+//					}
+//
+//					if (visited4[base] == false){
+//						nextLoop.push_back(base);
+//						visited4[base] = true;
+//					}
+//
+//				}else{
+//					diff = phsim::gammaDecode(reader);
+//					int id = base + diff;
+//					if (visited4[id] == false){
+//						nextLoop.push_back(id);
+//						visited4[id] = true;
+//					}
+//					base = id;
+//				}
+//			}
+//		}
+//
+//	}
+//////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//
+//	end1 = std::chrono::system_clock::now();
+//	elapsed_seconds = end1-start1;
+//	std::cout << "DFS (rrr) elapsed time: " << elapsed_seconds.count() << "s\n";
+//	thisLoop.clear();
+//	nextLoop.clear();
+//	cout << endl;
+///////////////////////////////////////////////////////////////////////////////////////////////
 
+	bool *visited5 = new bool [nV];
+
+	for(int i=0; i<nV ;i++){
+		visited5[i] = false;
+	}
+	visited5[0] = true;
+	visited5[nV-1] = true;
+	visited5[nV-2] = true;
+	thisLoop.push_back(0);
+	temp_set.clear();
+	temp_set = getAdjForOneVUsingsdbDI(data, 0);
+	for( int i=0; i<temp_set.size();i++){
+		nextLoop.push_back(temp_set[i]);
+		visited5[temp_set[i]] = true;
+	}
+	start1 = std::chrono::system_clock::now();
+	//int count = 0;
+//	while (nextLoop.size()){
+//		thisLoop = nextLoop;
+//		nextLoop.clear();
+//		for ( int i=0; i<thisLoop.size() ;i++){
+//			int vectorIndex = 0;
+//			int offsetInV = 0;
+//			int dataLength = 0;
+//			vector <int> adjList;
+//			vector <int> temp;
+//			sd_vector<>::select_1_type sdb_s(&indexStructure.sdb_vector);
+//			// Parameters Preparation
+//			vectorIndex = sdb_s(thisLoop[i]+1)/64;
+//			offsetInV = sdb_s(thisLoop[i]+1)%64;
+//
+//			if ( thisLoop[i] != indexStructure.directIndex.size()-1){
+//				dataLength = sdb_s(thisLoop[i]+2) - sdb_s(thisLoop[i]+1);
+//			}else{
+//				dataLength = data.length - sdb_s(thisLoop[i]+1);
+//			}
+//
+//			phsim::BitStringReader reader(data, vectorIndex, dataLength , offsetInV); // reader.bits_left = dataLength + offsetInV
+//			int flag=0;
+//			int base = 0;
+//			int diff = 0;
+//			while(!reader.eof()){
+//				if (flag==0){
+//					diff = phsim::gammaDecodeWithOffset(reader , offsetInV);
+//					flag++;
+//					if ( negativeDiff[thisLoop[i]] == false){
+//						base = thisLoop[i] + diff;
+//					}else{
+//						base = thisLoop[i] - diff;
+//					}
+//
+//					if (visited5[base] == false){
+//						nextLoop.push_back(base);
+//						visited5[base] = true;
+//					}
+//
+//				}else{
+//					diff = phsim::gammaDecode(reader);
+//					int id = base + diff;
+//					if (visited5[id] == false){
+//						nextLoop.push_back(id);
+//						visited5[id] = true;
+//					}
+//					base = id;
+//				}
+//			}
+//		}
+//
+//	}
 	while (nextLoop.size()){
-		//cout << nextLoop.size()<<"  ";
 		thisLoop = nextLoop;
 		nextLoop.clear();
 		for ( int i=0; i<thisLoop.size() ;i++){
-
 			int vectorIndex = 0;
 			int offsetInV = 0;
 			int dataLength = 0;
 			vector <int> adjList;
-			//vector <int> temp;
+			vector <int> temp;
+			sd_vector<>::select_1_type sdb_s(&indexStructure.sdb_vector);
 			// Parameters Preparation
-			vectorIndex = indexStructure.directIndex[thisLoop[i]]/64;
-			offsetInV = indexStructure.directIndex[thisLoop[i]]%64;
+			vectorIndex = sdb_s(thisLoop[i]+1)/64;
+			offsetInV = sdb_s(thisLoop[i]+1)%64;
+
 			if ( thisLoop[i] != indexStructure.directIndex.size()-1){
-				dataLength = indexStructure.directIndex[thisLoop[i]+1] - indexStructure.directIndex[thisLoop[i]];
+				dataLength = sdb_s(thisLoop[i]+2) - sdb_s(thisLoop[i]+1);
 			}else{
-				dataLength = data.length - indexStructure.directIndex[thisLoop[i]];
+				dataLength = data.length - sdb_s(thisLoop[i]+1);
 			}
 
 			phsim::BitStringReader reader(data, vectorIndex, dataLength , offsetInV); // reader.bits_left = dataLength + offsetInV
 			int flag=0;
-//			while(!reader.eof()){
-//				if (flag==0){
-//					temp.push_back(phsim::gammaDecodeWithOffset(reader , offsetInV));
-//					flag++;
-//				}else{
-//					temp.push_back(phsim::gammaDecode(reader));
-//				}
-//			}
 			int base = 0;
 			int diff = 0;
+			phsim::gammaDecodeWithOffset(reader , offsetInV);
 			while(!reader.eof()){
 				if (flag==0){
-					diff = phsim::gammaDecodeWithOffset(reader , offsetInV);
+					diff = phsim::gammaDecode(reader);
 					flag++;
 					if ( negativeDiff[thisLoop[i]] == false){
 						base = thisLoop[i] + diff;
@@ -2956,414 +3391,353 @@ void DFS(phsim::BitString data){
 						base = thisLoop[i] - diff;
 					}
 
-					if (visited[base] == false){
+					if (visited5[base] == false){
 						nextLoop.push_back(base);
-						visited[base] = true;
+						visited5[base] = true;
 					}
 
 				}else{
 					diff = phsim::gammaDecode(reader);
 					int id = base + diff;
-					if (visited[id] == false){
+					if (visited5[id] == false){
 						nextLoop.push_back(id);
-						visited[id] = true;
+						visited5[id] = true;
 					}
 					base = id;
 				}
 			}
-//			int base = 0;
-//			if ( negativeDiff[thisLoop[i]] == false){
-//				base = thisLoop[i] + temp[0];
-//			}else{
-//				base = thisLoop[i] - temp[0];
-//			}
-//
-//			if (visited[base] == false){
-//				nextLoop.push_back(base);
-//				visited[base] = true;
-//			}
-//			//adjList.push_back(mappingForRestore[base]);
-//			for( int i=1; i<temp.size(); i++){
-//				int id = base + temp[i];
-//
-//				if (visited[id] == false){
-//					nextLoop.push_back(id);
-//					visited[id] = true;
-//				}
-//				base = id;
-//			}
 		}
 
-
 	}
-
-
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-
 	end1 = std::chrono::system_clock::now();
 	elapsed_seconds = end1-start1;
-	std::cout << "DFS (Direct) elapsed time: " << elapsed_seconds.count() << "s\n";
-
-	thisLoop.clear();
-	nextLoop.clear();
-	start1 = std::chrono::system_clock::now();
-
-//////////////////////////////////////////////////////////////////////////////////////////
-
-	cout << endl;
-
-	bool *visited2 = new bool [nV];
-	for(int i=0; i<nV ;i++){
-		visited2[i] = false;
-	}
-	thisLoop.push_back(0);
-	visited2[0] = true;
-
-	for( int i=0; i<InputXadj[1];i++){
-		nextLoop.push_back(Inputadj[i]);
-		visited2[Inputadj[i]] = true;
-	}
-//	for ( int i=0; i< nextLoop.size();i++){
-//		cout << nextLoop[i] << " ";
-//	}
-	while (nextLoop.size()){
-		//cout << nextLoop.size()<< " ";
-		thisLoop = nextLoop;
-		nextLoop.clear();
-		for ( int i=0; i<thisLoop.size() ;i++){
-
-			for ( int j=0; j< InputXadj[ thisLoop[i]+1 ] - InputXadj[thisLoop[i]] ;j++){
-
-				if (visited2[Inputadj[InputXadj[thisLoop[i]]+j]] == false){
-
-					nextLoop.push_back( Inputadj[InputXadj[thisLoop[i]]+j] );
-					visited2[ Inputadj[InputXadj[thisLoop[i]]+j] ] = true;
-
-				}
-
-			}
-		}
-	}
-
-//////////////////////////////////////////////////////////////////////////////////////
-	end1 = std::chrono::system_clock::now();
-	elapsed_seconds = end1-start1;
-	std::cout << "DFS (array-based adjacency list) elapsed time: " << elapsed_seconds.count() << "s\n";
-
+	std::cout << "DFS (sd vector) elapsed time: " << elapsed_seconds.count() << "s\n";
 	thisLoop.clear();
 	nextLoop.clear();
 	cout << endl;
+///////////////////////////////////////////////////////////////////////////////////////////////
 
-///////////////////////////////////////////////////////////////////////////////////////
-	bool *visited3 = new bool [nV];
+}
+void DFSIDI(phsim::BitString data){
+
+	vector<int> thisLoop;
+	vector<int> nextLoop;
+
+
+	std::chrono::time_point<std::chrono::system_clock> start1, end1;
+	std::chrono::duration<double> elapsed_seconds;
+
+	bool *visited6 = new bool [nV];
 
 	for(int i=0; i<nV ;i++){
-		visited3[i] = false;
+		visited6[i] = false;
 	}
-	visited3[0] = true;
-	visited3[nV-1] = true;
-	visited3[nV-2] = true;
-	visited3[nV-3] = true;
+	for (int i=0; i<18 ; i++){
+		visited6[nV-1-i] = true;
+	}
 
+	visited6[0] = true;
 	thisLoop.push_back(0);
-	temp_set.clear();
-	temp_set = getAdjForOneVUsingSemiDI(data, 0);
+
+	vector<int> temp_set = getAdjForOneVUsingsdbDI(data, 0);
 	for( int i=0; i<temp_set.size();i++){
 		nextLoop.push_back(temp_set[i]);
-		visited3[temp_set[i]] = true;
+		visited6[temp_set[i]] = true;
 	}
 
-	//cout << "here" <<endl;
 	start1 = std::chrono::system_clock::now();
-	//int count = 0;
+	int sum = thisLoop.size();
 	while (nextLoop.size()){
-	//while (count <=44){
-		//cout << nextLoop.size() <<"  ";
+		sum += nextLoop.size();
 		thisLoop = nextLoop;
 		nextLoop.clear();
 		for ( int i=0; i<thisLoop.size() ;i++){
-			if ( thisLoop[i] == nV-1 || thisLoop[i] == nV-2 || thisLoop[i] == nV-3 ){
+			if ( thisLoop[i] >= nV -20 ){
 
 			}else{
+				int block_num = thisLoop[i] / indexStructure.blockVNum;
+				int in_block_index = thisLoop[i] % indexStructure.blockVNum;
+
 				int vectorIndex = 0;
 				int offsetInV = 0;
 				int dataLength = 0;
-				vector <int> adjList;
-				vector <int> temp;
-				// Parameters Preparation
-				int order = thisLoop[i]/4;
-				if ( thisLoop[i]%4 == 0){      // The first word in semiDI is enough
-					vectorIndex = indexStructure.semiDIFW[order]/64;
-					offsetInV = indexStructure.semiDIFW[order]%64;
-					dataLength = indexStructure.semiDISW[order][0].to_ulong();
-					// Decoding
-					phsim::BitStringReader reader(data, vectorIndex, dataLength , offsetInV); // reader.bits_left = dataLength + offsetInV
-					int flag=0;
-//					while(!reader.eof()){
-//						if (flag==0){
-//							temp.push_back(phsim::gammaDecodeWithOffset(reader , offsetInV));
-//							flag++;
-//						}else{
-//							temp.push_back(phsim::gammaDecode(reader));
-//						}
-//					}
-					int base = 0;
-					int diff = 0;
-					while(!reader.eof()){
-						if (flag==0){
-							diff = phsim::gammaDecodeWithOffset(reader , offsetInV);
-							flag++;
-							if ( negativeDiff[thisLoop[i]] == false){
-								base = thisLoop[i] + diff;
-							}else{
-								base = thisLoop[i] - diff;
-							}
 
-							if (visited3[base] == false){
-								nextLoop.push_back(base);
-								visited3[base] = true;
-							}
+				int offset_in_subblock = 0;
+				int case_flag = 0;
 
-						}else{
-							diff = phsim::gammaDecode(reader);
-							int id = base + diff;
-							if (visited3[id] == false){
-								nextLoop.push_back(id);
-								visited3[id] = true;
-							}
-							base = id;
-						}
-					}
-				}else{
-					if ( thisLoop[i]%4 == 3){
-						unsigned int baseAddress = indexStructure.semiDIFW[order];
-						unsigned int realAddress = baseAddress + indexStructure.semiDISW[order][2].to_ulong();
-						vectorIndex = realAddress/64;
-						offsetInV = realAddress%64;
-						dataLength = indexStructure.semiDIFW[order+1] - (indexStructure.semiDIFW[order] + indexStructure.semiDISW[order][2].to_ulong()) ;
+				rrr_vector<>::select_1_type rrr_select(&indexStructure.rrrBVofEachBlock[block_num]);
+				rrr_vector<>::rank_1_type rrr_rank(&indexStructure.rrrBVofEachBlock[block_num]);
+
+
+				if ( indexStructure.indrectIndex[block_num].size() == 1 ){
+
+					dataLength = indexStructure.indrectIndex[block_num+1][0] - indexStructure.indrectIndex[block_num][0];
+					vectorIndex = indexStructure.indrectIndex[block_num][0]/64;
+					offsetInV = indexStructure.indrectIndex[block_num][0]%64;
+					offset_in_subblock = in_block_index;
+					//case_flag = 1;
+
+				}else if ( indexStructure.indrectIndex[block_num].size() == 2 ){
+
+					if ( in_block_index < rrr_select(2)){
+						dataLength = indexStructure.indrectIndex[block_num][1] - indexStructure.indrectIndex[block_num][0];
+						vectorIndex = indexStructure.indrectIndex[block_num][0]/64;
+						offsetInV = indexStructure.indrectIndex[block_num][0]%64;
+						offset_in_subblock = in_block_index;
+						//case_flag = 2;
+
 					}else{
-						unsigned int baseAddress = indexStructure.semiDIFW[order];
-						unsigned int realAddress = baseAddress + indexStructure.semiDISW[order][thisLoop[i] % 4 -1].to_ulong();
-						vectorIndex = realAddress/64;
-						offsetInV = realAddress%64;
-						dataLength = indexStructure.semiDISW[order][thisLoop[i] % 4].to_ulong() - indexStructure.semiDISW[order][thisLoop[i] % 4-1].to_ulong() ;
+						dataLength = indexStructure.indrectIndex[block_num+1][0] - indexStructure.indrectIndex[block_num][1];
+						vectorIndex = indexStructure.indrectIndex[block_num][1]/64;
+						offsetInV = indexStructure.indrectIndex[block_num][1]%64;
+						offset_in_subblock = in_block_index - rrr_select(2);
+						//case_flag = 2;
 					}
-					// Decoding
-					phsim::BitStringReader reader(data, vectorIndex, dataLength , offsetInV); // reader.bits_left = dataLength + offsetInV
-					int flag=0;
-//					while(!reader.eof()){
-//						if (flag==0){
-//							temp.push_back(phsim::gammaDecodeWithOffset(reader , offsetInV));
-//							flag++;
-//						}else{
-//							temp.push_back(phsim::gammaDecode(reader));
-//						}
-//					}
+
+				}else if ( indexStructure.indrectIndex[block_num].size() == 3 ){
+
+					if ( in_block_index < rrr_select(2)){
+						dataLength = indexStructure.indrectIndex[block_num][1] - indexStructure.indrectIndex[block_num][0];
+						vectorIndex = indexStructure.indrectIndex[block_num][0]/64;
+						offsetInV = indexStructure.indrectIndex[block_num][0]%64;
+						offset_in_subblock = in_block_index;
+						//case_flag = 3;
+
+					}else if (in_block_index < rrr_select(3)){
+
+						dataLength = indexStructure.indrectIndex[block_num][2] - indexStructure.indrectIndex[block_num][1];
+						vectorIndex = indexStructure.indrectIndex[block_num][1]/64;
+						offsetInV = indexStructure.indrectIndex[block_num][1]%64;
+						offset_in_subblock = in_block_index - rrr_select(2);
+						//case_flag = 3;
+					}else{
+
+						dataLength = indexStructure.indrectIndex[block_num+1][0] - indexStructure.indrectIndex[block_num][2];
+						vectorIndex = indexStructure.indrectIndex[block_num][2]/64;
+						offsetInV = indexStructure.indrectIndex[block_num][2]%64;
+						offset_in_subblock = in_block_index - rrr_select(3);
+						//case_flag = 3;
+					}
+
+				}else if ( indexStructure.indrectIndex[block_num].size() == 4 ){
+
+					if ( in_block_index < rrr_select(2)){
+
+						dataLength = indexStructure.indrectIndex[block_num][1] - indexStructure.indrectIndex[block_num][0];
+						vectorIndex = indexStructure.indrectIndex[block_num][0]/64;
+						offsetInV = indexStructure.indrectIndex[block_num][0]%64;
+						offset_in_subblock = in_block_index;
+						//case_flag = 4;
+
+					}else if (in_block_index < rrr_select(3)){
+
+						dataLength = indexStructure.indrectIndex[block_num][2] - indexStructure.indrectIndex[block_num][1];
+						vectorIndex = indexStructure.indrectIndex[block_num][1]/64;
+						offsetInV = indexStructure.indrectIndex[block_num][1]%64;
+						offset_in_subblock = in_block_index - rrr_select(2);
+						//case_flag = 4;
+
+					}else if (in_block_index < rrr_select(4)){
+
+						dataLength = indexStructure.indrectIndex[block_num][3] - indexStructure.indrectIndex[block_num][2];
+						vectorIndex = indexStructure.indrectIndex[block_num][2]/64;
+						offsetInV = indexStructure.indrectIndex[block_num][2]%64;
+						offset_in_subblock = in_block_index - rrr_select(3);
+						//case_flag = 4;
+					}else{
+						dataLength = indexStructure.indrectIndex[block_num+1][0] - indexStructure.indrectIndex[block_num][3];
+						vectorIndex = indexStructure.indrectIndex[block_num][3]/64;
+						offsetInV = indexStructure.indrectIndex[block_num][3]%64;
+						offset_in_subblock = in_block_index - rrr_select(4);
+						//case_flag = 4;
+					}
+
+				}else if ( indexStructure.indrectIndex[block_num].size() == 5 ){
+
+					if ( in_block_index < rrr_select(2)){
+
+						dataLength = indexStructure.indrectIndex[block_num][1] - indexStructure.indrectIndex[block_num][0];
+						vectorIndex = indexStructure.indrectIndex[block_num][0]/64;
+						offsetInV = indexStructure.indrectIndex[block_num][0]%64;
+						offset_in_subblock = in_block_index;
+						//case_flag = 4;
+
+					}else if (in_block_index < rrr_select(3)){
+
+						dataLength = indexStructure.indrectIndex[block_num][2] - indexStructure.indrectIndex[block_num][1];
+						vectorIndex = indexStructure.indrectIndex[block_num][1]/64;
+						offsetInV = indexStructure.indrectIndex[block_num][1]%64;
+						offset_in_subblock = in_block_index - rrr_select(2);
+						//case_flag = 4;
+
+					}else if (in_block_index < rrr_select(4)){
+
+						dataLength = indexStructure.indrectIndex[block_num][3] - indexStructure.indrectIndex[block_num][2];
+						vectorIndex = indexStructure.indrectIndex[block_num][2]/64;
+						offsetInV = indexStructure.indrectIndex[block_num][2]%64;
+						offset_in_subblock = in_block_index - rrr_select(3);
+						//case_flag = 4;
+					}else if (in_block_index < rrr_select(5)){
+						dataLength = indexStructure.indrectIndex[block_num][4] - indexStructure.indrectIndex[block_num][3];
+						vectorIndex = indexStructure.indrectIndex[block_num][3]/64;
+						offsetInV = indexStructure.indrectIndex[block_num][3]%64;
+						offset_in_subblock = in_block_index - rrr_select(4);
+						//case_flag = 5;
+					}else{
+						dataLength = indexStructure.indrectIndex[block_num+1][0] - indexStructure.indrectIndex[block_num][4];
+						vectorIndex = indexStructure.indrectIndex[block_num][4]/64;
+						offsetInV = indexStructure.indrectIndex[block_num][4]%64;
+						offset_in_subblock = in_block_index - rrr_select(5);
+						//case_flag = 5;
+					}
+
+				}else if ( indexStructure.indrectIndex[block_num].size() == 6 ){
+
+					if ( in_block_index < rrr_select(2)){
+
+						dataLength = indexStructure.indrectIndex[block_num][1] - indexStructure.indrectIndex[block_num][0];
+						vectorIndex = indexStructure.indrectIndex[block_num][0]/64;
+						offsetInV = indexStructure.indrectIndex[block_num][0]%64;
+						offset_in_subblock = in_block_index;
+
+
+					}else if (in_block_index < rrr_select(3)){
+
+						dataLength = indexStructure.indrectIndex[block_num][2] - indexStructure.indrectIndex[block_num][1];
+						vectorIndex = indexStructure.indrectIndex[block_num][1]/64;
+						offsetInV = indexStructure.indrectIndex[block_num][1]%64;
+						offset_in_subblock = in_block_index - rrr_select(2);
+
+					}else if (in_block_index < rrr_select(4)){
+
+						dataLength = indexStructure.indrectIndex[block_num][3] - indexStructure.indrectIndex[block_num][2];
+						vectorIndex = indexStructure.indrectIndex[block_num][2]/64;
+						offsetInV = indexStructure.indrectIndex[block_num][2]%64;
+						offset_in_subblock = in_block_index - rrr_select(3);
+
+					}else if (in_block_index < rrr_select(5)){
+						dataLength = indexStructure.indrectIndex[block_num][4] - indexStructure.indrectIndex[block_num][3];
+						vectorIndex = indexStructure.indrectIndex[block_num][3]/64;
+						offsetInV = indexStructure.indrectIndex[block_num][3]%64;
+						offset_in_subblock = in_block_index - rrr_select(4);
+
+					}else if (in_block_index < rrr_select(6)){
+						dataLength = indexStructure.indrectIndex[block_num][5] - indexStructure.indrectIndex[block_num][4];
+						vectorIndex = indexStructure.indrectIndex[block_num][4]/64;
+						offsetInV = indexStructure.indrectIndex[block_num][4]%64;
+						offset_in_subblock = in_block_index - rrr_select(5);
+
+					}else{
+						dataLength = indexStructure.indrectIndex[block_num+1][0] - indexStructure.indrectIndex[block_num][5];
+						vectorIndex = indexStructure.indrectIndex[block_num][5]/64;
+						offsetInV = indexStructure.indrectIndex[block_num][5]%64;
+						offset_in_subblock = in_block_index - rrr_select(6);
+
+					}
+
+				}else{
+					//cout << "here" <<endl;
+				}
+				//cout << "111" <<endl;
+			//
+				phsim::BitStringReader reader(data, vectorIndex, dataLength , offsetInV); // reader.bits_left = dataLength + offsetInV
+
+				if (offset_in_subblock == 0){
+
+	//				while(!reader.eof()){
+	//					if (flag==0){
+	//						temp.push_back(phsim::gammaDecodeWithOffset(reader , offsetInV));
+	//						flag++;
+	//					}else{
+	//						temp.push_back(phsim::gammaDecode(reader));
+	//					}
+	//
+	//				}
+					int degree = phsim::gammaDecodeWithOffset(reader , offsetInV);
 					int base = 0;
-					int diff = 0;
-					while(!reader.eof()){
-						if (flag==0){
-							diff = phsim::gammaDecodeWithOffset(reader , offsetInV);
-							flag++;
-							if ( negativeDiff[thisLoop[i]] == false){
-								base = thisLoop[i] + diff;
-							}else{
-								base = thisLoop[i] - diff;
-							}
+					int diff = phsim::gammaDecode(reader);
+					if ( negativeDiff[thisLoop[i]] == false){
+						base = thisLoop[i] + diff;
+					}else{
+						base = thisLoop[i] - diff;
+					}
 
-							if (visited3[base] == false){
-								nextLoop.push_back(base);
-								visited3[base] = true;
-							}
+					if (visited6[base] == false){
+						nextLoop.push_back(base);
+						visited6[base] = true;
+					}
+					for( int i=0; i<degree-1; i++){
+						int id = base + phsim::gammaDecode(reader);;
+						if (visited6[id] == false){
+							nextLoop.push_back(id);
+							visited6[id] = true;
+						}
+						base = id;
+					}
 
-						}else{
-							diff = phsim::gammaDecode(reader);
-							int id = base + diff;
-							if (visited3[id] == false){
-								nextLoop.push_back(id);
-								visited3[id] = true;
-							}
-							base = id;
+				}else{
+
+	//				while(!reader.eof()){
+	//					if (flag==0){
+	//						temp.push_back(phsim::gammaDecodeWithOffset(reader , offsetInV));
+	//						flag++;
+	//					}else{
+	//						temp.push_back(phsim::gammaDecode(reader));
+	//					}
+	//
+	//				}
+					int start_index = 0;
+					int degree_num = phsim::gammaDecodeWithOffset(reader , offsetInV);
+
+					for ( int i=0; i< degree_num ;i++){
+						phsim::gammaDecode(reader);
+					}
+
+					for( int i = 0; i < offset_in_subblock-1; i++){
+						degree_num = phsim::gammaDecode(reader);
+						for ( int j=0; j<degree_num; j++){
+							phsim::gammaDecode(reader);
 						}
 					}
-				}
 
+					int degree = phsim::gammaDecode(reader);
+					int base = 0;
+					int diff = phsim::gammaDecode(reader);
+					if ( negativeDiff[thisLoop[i]] == false){
+						base = thisLoop[i] + diff;
+					}else{
+						base = thisLoop[i] - diff;
+					}
+
+					if (visited6[base] == false){
+						nextLoop.push_back(base);
+						visited6[base] = true;
+					}
+					for( int i=0; i<degree-1; i++){
+						int id = base + phsim::gammaDecode(reader);;
+						if (visited6[id] == false){
+							nextLoop.push_back(id);
+							visited6[id] = true;
+						}
+						base = id;
+					}
+
+				}
 			}
 		}
-
 	}
 
-////////////////////////////////////////////////////////////////////////////////////////////////
+	end1 = std::chrono::system_clock::now();
+	elapsed_seconds = end1-start1;
+	std::cout << "DFS (Indirect) elapsed time: " << elapsed_seconds.count() << "s\n";
 
+	thisLoop.clear();
+	nextLoop.clear();
+	//cout << sum <<endl;
 
-		end1 = std::chrono::system_clock::now();
-		elapsed_seconds = end1-start1;
-		std::cout << "DFS (Semi-Direct) elapsed time: " << elapsed_seconds.count() << "s\n";
-		thisLoop.clear();
-		nextLoop.clear();
-		cout << endl;
-
-///////////////////////////////////////////////////////////////////////////////////////////////
-
-		bool *visited4 = new bool [nV];
-
-		for(int i=0; i<nV ;i++){
-			visited4[i] = false;
-		}
-		visited4[0] = true;
-		visited4[nV-1] = true;
-		visited4[nV-2] = true;
-		thisLoop.push_back(0);
-		temp_set.clear();
-		temp_set = getAdjForOneVUsingrrrDI(data, 0);
-		for( int i=0; i<temp_set.size();i++){
-			nextLoop.push_back(temp_set[i]);
-			visited4[temp_set[i]] = true;
-		}
-		start1 = std::chrono::system_clock::now();
-		//int count = 0;
-		while (nextLoop.size()){
-			thisLoop = nextLoop;
-			nextLoop.clear();
-			for ( int i=0; i<thisLoop.size() ;i++){
-				int vectorIndex = 0;
-				int offsetInV = 0;
-				int dataLength = 0;
-				vector <int> adjList;
-				vector <int> temp;
-				rrr_vector<>::select_1_type rrr_s(&indexStructure.rrr_direct_index);
-				// Parameters Preparation
-				vectorIndex = rrr_s(thisLoop[i]+1)/64;
-				offsetInV = rrr_s(thisLoop[i]+1)%64;
-				if ( thisLoop[i] != indexStructure.directIndex.size()-1){
-					dataLength = rrr_s(thisLoop[i]+2) - rrr_s(thisLoop[i]+1);
-				}else{
-					dataLength = data.length - rrr_s(thisLoop[i]+1);
-				}
-
-				phsim::BitStringReader reader(data, vectorIndex, dataLength , offsetInV); // reader.bits_left = dataLength + offsetInV
-				int flag=0;
-				int base = 0;
-				int diff = 0;
-				while(!reader.eof()){
-					if (flag==0){
-						diff = phsim::gammaDecodeWithOffset(reader , offsetInV);
-						flag++;
-						if ( negativeDiff[thisLoop[i]] == false){
-							base = thisLoop[i] + diff;
-						}else{
-							base = thisLoop[i] - diff;
-						}
-
-						if (visited4[base] == false){
-							nextLoop.push_back(base);
-							visited4[base] = true;
-						}
-
-					}else{
-						diff = phsim::gammaDecode(reader);
-						int id = base + diff;
-						if (visited4[id] == false){
-							nextLoop.push_back(id);
-							visited4[id] = true;
-						}
-						base = id;
-					}
-				}
-			}
-
-		}
-////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-		end1 = std::chrono::system_clock::now();
-		elapsed_seconds = end1-start1;
-		std::cout << "DFS (rrr) elapsed time: " << elapsed_seconds.count() << "s\n";
-		thisLoop.clear();
-		nextLoop.clear();
-		cout << endl;
-///////////////////////////////////////////////////////////////////////////////////////////////
-
-		bool *visited5 = new bool [nV];
-
-		for(int i=0; i<nV ;i++){
-			visited5[i] = false;
-		}
-		visited5[0] = true;
-		visited5[nV-1] = true;
-		visited5[nV-2] = true;
-		thisLoop.push_back(0);
-		temp_set.clear();
-		temp_set = getAdjForOneVUsingsdbDI(data, 0);
-		for( int i=0; i<temp_set.size();i++){
-			nextLoop.push_back(temp_set[i]);
-			visited5[temp_set[i]] = true;
-		}
-		start1 = std::chrono::system_clock::now();
-		//int count = 0;
-		while (nextLoop.size()){
-			thisLoop = nextLoop;
-			nextLoop.clear();
-			for ( int i=0; i<thisLoop.size() ;i++){
-				int vectorIndex = 0;
-				int offsetInV = 0;
-				int dataLength = 0;
-				vector <int> adjList;
-				vector <int> temp;
-				sd_vector<>::select_1_type sdb_s(&indexStructure.sdb_vector);
-				// Parameters Preparation
-				vectorIndex = sdb_s(thisLoop[i]+1)/64;
-				offsetInV = sdb_s(thisLoop[i]+1)%64;
-
-				if ( thisLoop[i] != indexStructure.directIndex.size()-1){
-					dataLength = sdb_s(thisLoop[i]+2) - sdb_s(thisLoop[i]+1);
-				}else{
-					dataLength = data.length - sdb_s(thisLoop[i]+1);
-				}
-
-				phsim::BitStringReader reader(data, vectorIndex, dataLength , offsetInV); // reader.bits_left = dataLength + offsetInV
-				int flag=0;
-				int base = 0;
-				int diff = 0;
-				while(!reader.eof()){
-					if (flag==0){
-						diff = phsim::gammaDecodeWithOffset(reader , offsetInV);
-						flag++;
-						if ( negativeDiff[thisLoop[i]] == false){
-							base = thisLoop[i] + diff;
-						}else{
-							base = thisLoop[i] - diff;
-						}
-
-						if (visited5[base] == false){
-							nextLoop.push_back(base);
-							visited5[base] = true;
-						}
-
-					}else{
-						diff = phsim::gammaDecode(reader);
-						int id = base + diff;
-						if (visited5[id] == false){
-							nextLoop.push_back(id);
-							visited5[id] = true;
-						}
-						base = id;
-					}
-				}
-			}
-
-		}
-////////////////////////////////////////////////////////////////////////////////////////////////
-
-		end1 = std::chrono::system_clock::now();
-		elapsed_seconds = end1-start1;
-		std::cout << "DFS (sd vector) elapsed time: " << elapsed_seconds.count() << "s\n";
-		thisLoop.clear();
-		nextLoop.clear();
-		cout << endl;
 }
-
 
 int metisUsage(){
 

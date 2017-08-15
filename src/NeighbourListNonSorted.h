@@ -31,15 +31,15 @@ class NeighbourListNonSorted{
 public:
 	NeighbourListNonSorted();
 
-	static const int tableSize = 15606; // table size of 4elt graph
+	//static const int tableSize = 15606; // table size of 4elt graph
 	//static const int tableSize = 214765; // table size of m14b graph
 	//static const int tableSize = 143437; // table size of feocean graph
 	//static const int tableSize = 15; // table size of hyper-small mesh graph
 	//static const int tableSize = 144649;    //table size  of 144.graph
 	//static const int tableSize = 110971; //table size of 598a graph
 	//static const int tableSize = 28924; //table size of bcsstk30 graph
-	//static const int tableSize = 35588;  //table size of bcsstk31 graph
-	//static const int tableSize = 45087;  //table size of fe_body graph
+	// static const int tableSize = 35588;  //table size of bcsstk31 graph
+	static const int tableSize = 45087;  //table size of fe_body graph
 	//static const int tableSize = 156317;  //table size of wave graph
 
 	void addItem( int Vid, int index);
